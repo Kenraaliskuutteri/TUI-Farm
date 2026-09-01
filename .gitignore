@@ -1,0 +1,28 @@
+# Ignore the final executable files
+game_engine
+game_engine.exe
+build/
+
+# Ignore compiled object and library files
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dll
+*.dylib
+
+
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+data/farm_state.txt
+data/drone_cmd.txt
+.game_data/
