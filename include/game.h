@@ -15,7 +15,15 @@ typedef struct {
 } Tile;
 
 typedef struct {
+    int total_ticks;
+    int minutes;
+    int hours;
+    int days;
+} ClockData;
+
+typedef struct {
     Tile grid[MAP_HEIGHT][MAP_WIDTH];
+    ClockData clock;
 } GameWorld;
 
 void init_world(GameWorld *world);
@@ -24,5 +32,8 @@ void render_world(const GameWorld *world, int current_rows, int current_cols);
 
 int check_screen_size(int *current_rows, int *current_cols);
 void render_too_small_screen(int current_rows, int current_cols);
+
+void init_clock(GameWorld *world);
+void update_clock(GameWorld *world);
 
 #endif

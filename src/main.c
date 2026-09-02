@@ -5,8 +5,9 @@
 int main() {
     GameWorld world;
     init_world(&world);
+    init_clock(&world);
 
-    
+
     printf("\033[?1049h\033[?25l");
     fflush(stdout);
 
@@ -14,18 +15,17 @@ int main() {
     int current_cols = 0;
 
     while (1) {
-        // this should check metrics from engine.c right.
         if (check_screen_size(&current_rows, &current_cols)) {
-            // Screen is plenty big; draw the centered game map
+            update_clock(&world);
             render_world(&world, current_rows, current_cols);
         } else {
-            // Screen collapsed below floor limit; lock and show warning
             render_too_small_screen(current_rows, current_cols);
         }
         
         fflush(stdout);
-        usleep(200000); // 200ms tick delay
+        usleep(200000); 
     }
 
+    printf("\033[?1049l\033[?25h");
     return 0;
 }
