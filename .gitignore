@@ -1,6 +1,7 @@
 # Ignore the final executable files
 game_engine
 game_engine.exe
+.tmp_game
 build/
 
 # Ignore compiled object and library files
