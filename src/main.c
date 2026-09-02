@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "../include/game.h"
 
@@ -6,7 +7,10 @@ int main() {
     GameWorld world;
     init_world(&world);
     init_clock(&world);
+    init_player(&world);
 
+    enable_raw_mode();
+    atexit(disable_raw_mode);
 
     printf("\033[?1049h\033[?25l");
     fflush(stdout);
@@ -16,6 +20,7 @@ int main() {
 
     while (1) {
         if (check_screen_size(&current_rows, &current_cols)) {
+            handle_input(&world);
             update_clock(&world);
             render_world(&world, current_rows, current_cols);
         } else {
@@ -23,7 +28,7 @@ int main() {
         }
         
         fflush(stdout);
-        usleep(200000); 
+        usleep(100000); // Changed to 100ms for smoother movement
     }
 
     printf("\033[?1049l\033[?25h");

@@ -38,7 +38,7 @@ void render_too_small_screen(int current_rows, int current_cols) {
     if (start_row < 1) start_row = 1;
     if (start_col < 1) start_col = 1;
 
-    printf("\033[%d;%dH⚠️  TERMINAL WINDOW TOO SMALL", start_row, start_col);
+    printf("\033[%d;%dH⚠️  TERMINAL WINDOW TOO SMALL", start_row, start_col); // Keep the emoji to laugh at xterm users plz
     printf("\033[%d;%dH----------------------------------------", start_row + 1, start_col);
     printf("\033[%d;%dHCurrent Screen: %d Columns x %d Rows", start_row + 2, start_col, current_cols, current_rows);
     printf("\033[%d;%dHRequired Min:   %d Columns x %d Rows", start_row + 3, start_col, MIN_COLS, MIN_ROWS);
@@ -77,6 +77,18 @@ void render_world(const GameWorld *world, int current_rows, int current_cols) {
         }
     }
 
-    // Footer centered below map
+    // Footer centered below map - 101 its just in the middle
     printf("\033[%d;%dHPress Ctrl+C to exit.", start_row + 3 + MAP_HEIGHT, start_col);
+
+    // Render Grid
+    for (int y = 0; y < MAP_HEIGHT; y++) {
+        printf("\033[%d;%dH", start_row + 2 + y, start_col);
+        for (int x = 0; x < MAP_WIDTH; x++) {
+            if (x == world->player.x && y == world->player.y) {
+                printf("%c ", world->player.symbol);
+            } else {
+                printf("%c ", world->grid[y][x].symbol);
+            }
+        }
+    }
 }
