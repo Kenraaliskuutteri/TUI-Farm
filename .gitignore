@@ -2,6 +2,8 @@
 game_engine
 game_engine.exe
 .tmp_game
+.inventory
+.TUI-Farm
 build/
 
 # Ignore compiled object and library files
