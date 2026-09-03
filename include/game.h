@@ -28,10 +28,24 @@ typedef struct {
 } Player;
 
 typedef struct {
+    int water;          
+    int no_water;       
+    int water_amount;   // Remaining water in Liters
+} Water;
+
+typedef struct {
+    int plant_info;
+    int grow_status;
+//    int genetics - This is for a later date. I really cant be asked with making this yet. We will see when it comes. 
+} Info;
+
+typedef struct {
     Tile grid[MAP_HEIGHT][MAP_WIDTH];
     ClockData clock;
     Player player;
-} GameWorld;
+    Water water;
+    Info info;
+} GameWorld;    
 
 void init_world(GameWorld *world);
 void render_world(const GameWorld *world, int current_rows, int current_cols);
@@ -47,5 +61,11 @@ void handle_input(GameWorld *world);
 
 void enable_raw_mode(void);
 void disable_raw_mode(void);
+
+void init_water(void);
+void update_water(void);
+
+void init_info(void); // i am SO lost... I don't think the init water and info should be a thing. BUT THEY WORK OKAY? I'll stop ripping out my hair for it.
+void update_info(void);
 
 #endif
