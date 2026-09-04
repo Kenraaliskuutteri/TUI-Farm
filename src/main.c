@@ -8,6 +8,8 @@ int main() {
     init_world(&world);
     init_clock(&world);
     init_player(&world);
+    init_plants(&world);
+    init_water(&world);
 
     enable_raw_mode();
     atexit(disable_raw_mode);
@@ -22,13 +24,14 @@ int main() {
         if (check_screen_size(&current_rows, &current_cols)) {
             handle_input(&world);
             update_clock(&world);
+            update_plants(&world);
             render_world(&world, current_rows, current_cols);
         } else {
             render_too_small_screen(current_rows, current_cols);
         }
-        
+
         fflush(stdout);
-        usleep(100000); // Changed to 100ms for smoother movement
+        usleep(100000);
     }
 
     printf("\033[?1049l\033[?25h");

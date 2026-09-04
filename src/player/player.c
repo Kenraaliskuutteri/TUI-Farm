@@ -1,4 +1,3 @@
-#include <stdio.h> // Is this used anywhere even? idfk
 #include <termios.h>
 #include <unistd.h>
 #include <fcntl.h>
@@ -29,9 +28,18 @@ void init_player(GameWorld *world) {
 void handle_input(GameWorld *world) {
     char ch;
     while (read(STDIN_FILENO, &ch, 1) > 0) {
+        if (ch == 'q' || ch == 'Q') {
+            world->show_inventory = !world->show_inventory;
+            continue;
+        }
+        if (world->show_inventory) continue;
+
         if ((ch == 'w' || ch == 'W') && world->player.y > 0) world->player.y--;
         if ((ch == 's' || ch == 'S') && world->player.y < MAP_HEIGHT - 1) world->player.y++;
         if ((ch == 'a' || ch == 'A') && world->player.x > 0) world->player.x--;
         if ((ch == 'd' || ch == 'D') && world->player.x < MAP_WIDTH - 1) world->player.x++;
+        if (ch == 'p' || ch == 'P') plant_action(world, PLANT_WHEAT);
+        if (ch == 'e' || ch == 'E') water_plant_action(world);
+        if (ch == 'g' || ch == 'G') gather_action(world);
     }
-}
+}   
